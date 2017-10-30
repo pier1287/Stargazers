@@ -11,6 +11,7 @@ import javax.inject.Singleton
 /**
  * Created by carusopi on 27/10/2017.
  */
+
 @Module
 class RetrofitModule {
     @Provides

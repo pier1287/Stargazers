@@ -20,5 +20,6 @@ class StargazersApp: Application() {
     }
 
     private fun initDagger() {
+        appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
     }
 }
