@@ -52,6 +52,7 @@ dependencies {
     //Rx
     implementation "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
     implementation "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
+    implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0'
 
     implementation 'com.facebook.fresco:fresco:1.5.0'
 

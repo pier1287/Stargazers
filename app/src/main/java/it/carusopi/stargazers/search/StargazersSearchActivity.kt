@@ -1,15 +1,20 @@
 package it.carusopi.stargazers.search
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import com.jakewharton.rxbinding2.view.RxView
 import it.carusopi.stargazers.R
+import it.carusopi.stargazers.base.BaseActivity
+import it.carusopi.stargazers.list.StargazersListActivity
+import it.carusopi.stargazers.search.di.DaggerStargazersSearchComponent
+import it.carusopi.stargazers.search.di.StargazersSearchModule
 import kotlinx.android.synthetic.main.activity_stargazers_search.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class StargazersSearchActivity : AppCompatActivity(), StargazersSearchContract.View {
+class StargazersSearchActivity : BaseActivity(), StargazersSearchContract.View {
 
     @Inject
-    lateinit var mPresenter: StargazersSearchContract.Presenter
+    lateinit var presenter: StargazersSearchContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,9 +22,24 @@ class StargazersSearchActivity : AppCompatActivity(), StargazersSearchContract.V
         initView()
     }
 
-    fun initView(){}
+    override fun onActivityInject() {
+        DaggerStargazersSearchComponent.builder().appComponent(getAppcomponent())
+                .stargazersSearchModule(StargazersSearchModule())
+                .build()
+                .inject(this)
 
-    override fun goToStargazersList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        presenter.attachView(this)
+    }
+
+    fun initView(){
+        RxView.clicks(btnSearch)
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    presenter.onSearchClick(etxtOwner.text.toString(), etxtRepository.text.toString())
+                }
+    }
+
+    override fun goToStargazersList(owner: String, repo: String) {
+        StargazersListActivity.start(this, owner, repo)
     }
 }

@@ -7,7 +7,7 @@
     tools:context="it.carusopi.stargazers.search.StargazersSearchActivity">
 
     <EditText
-        android:id="@+id/etxt_owner"
+        android:id="@+id/etxtOwner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -15,16 +15,17 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@id/etxt_repository"
+        app:layout_constraintBottom_toTopOf="@id/etxtRepository"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.35"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        android:hint="@string/owner_hint"
+        />
 
     <EditText
-        android:id="@+id/etxt_repository"
+        android:id="@+id/etxtRepository"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -32,23 +33,23 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@id/btn_search"
+        app:layout_constraintBottom_toTopOf="@id/btnSearch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etxt_owner" />
+        app:layout_constraintTop_toBottomOf="@+id/etxtOwner"
+        android:hint="@string/repo_hint"/>
 
     <Button
-        android:id="@+id/btn_search"
+        android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="Button"
+        android:layout_marginTop="32dp"
+        android:text="@string/search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etxt_repository" />
+        app:layout_constraintTop_toBottomOf="@+id/etxtRepository" />
 </android.support.constraint.ConstraintLayout>

@@ -9,10 +9,10 @@ import it.carusopi.stargazers.base.mvp.BaseView
 interface StargazersSearchContract {
 
     abstract class Presenter  : BasePresenter<View>() {
-
+        abstract fun onSearchClick(owner: String, repo: String)
     }
 
     interface View : BaseView {
-        fun goToStargazersList()
+        fun goToStargazersList(owner: String, repo: String)
     }
 }

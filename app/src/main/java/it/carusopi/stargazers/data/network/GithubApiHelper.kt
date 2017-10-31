@@ -6,18 +6,32 @@ import okhttp3.Headers
  * Created by carusopi on 31/10/2017.
  */
 
-private val META_NEXT = "next"
-private val META_LAST = "last"
-private val META_PREV = "prev"
-private val META_FIRST = "first"
-private val HEADER_NEXT = "X-Next"
-private val HEADER_LAST = "X-Last"
-private val META_REL = "rel"
-private val HEADERS_LINK = "LINK"
-private val DELIM_LINKS = ","
-private val DELIM_LINK_PARAM = ";"
+
 
 class PageLinks(headers: Headers) {
+
+    companion object {
+        @JvmField
+        val META_NEXT = "next"
+        @JvmField
+        val META_LAST = "last"
+        @JvmField
+        val META_PREV = "prev"
+        @JvmField
+        val META_FIRST = "first"
+        @JvmField
+        val HEADER_NEXT = "X-Next"
+        @JvmField
+        val HEADER_LAST = "X-Last"
+        @JvmField
+        val META_REL = "rel"
+        @JvmField
+        val HEADERS_LINK = "LINK"
+        @JvmField
+        val DELIM_LINKS = ","
+        @JvmField
+        val DELIM_LINK_PARAM = ";"
+    }
 
     var first: String? = null
     var last: String? = null

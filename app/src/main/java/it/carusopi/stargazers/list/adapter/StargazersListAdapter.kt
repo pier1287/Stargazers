@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
 import it.carusopi.stargazers.R
 import it.carusopi.stargazers.data.model.Stargazer
+import kotlinx.android.synthetic.main.recycler_item_loader.view.*
 import kotlinx.android.synthetic.main.recycler_item_stargazers_list.view.*
 
 
@@ -16,18 +18,33 @@ import kotlinx.android.synthetic.main.recycler_item_stargazers_list.view.*
  * Created by carusopi on 30/10/2017.
  */
 class  StargazersListAdapter (var context: Context, var stargazersList: MutableList<Stargazer>):
-        RecyclerView.Adapter<StargazersListAdapter.StargazerViewHolder>(){
+        RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
+    companion object {
+        @JvmField val VIEW_TYPE_LOADING = 0
+        @JvmField val VIEW_TYPE_ITEM = 1
+    }
 
     override fun getItemCount(): Int = stargazersList.size
 
-    override fun onBindViewHolder(holder: StargazersListAdapter.StargazerViewHolder?, position: Int) {
-        holder?.bind(stargazersList.get(position))
+    override fun getItemViewType(position: Int): Int = if (position < (stargazersList.count()-1)) VIEW_TYPE_ITEM else VIEW_TYPE_LOADING
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+        when(holder) {
+            is StargazerViewHolder -> holder.bind(stargazersList[position])
+            is LoaderViewHolder -> holder.progress.isIndeterminate = true
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): StargazersListAdapter.StargazerViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.recycler_item_stargazers_list, parent, false)
-        return StargazerViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == VIEW_TYPE_ITEM) {
+            val view = LayoutInflater.from(context).inflate(R.layout.recycler_item_stargazers_list, parent, false)
+            return StargazerViewHolder(view)
+        }
+        else {
+            val view = LayoutInflater.from(context).inflate(R.layout.recycler_item_loader, parent, false)
+            return LoaderViewHolder(view)
+        }
     }
 
     fun addStargazers(stargazersToAdd: List<Stargazer>){
@@ -44,5 +61,10 @@ class  StargazersListAdapter (var context: Context, var stargazersList: MutableL
             user.text = item.login
             avatar.setImageURI(item.avatarUrl)
         }
+    }
+
+    class LoaderViewHolder(view: View): RecyclerView.ViewHolder(view){
+        val progress: ProgressBar = itemView.progressBar
+
     }
 }

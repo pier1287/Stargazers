@@ -9,13 +9,12 @@ import it.carusopi.stargazers.data.model.Stargazer
  */
 interface StargazersListContract {
     abstract class Presenter  : BasePresenter<View>() {
-        abstract fun loadStargazers()
+        abstract fun loadStargazers(owner: String, repo: String)
         abstract fun loadMoreStargazers()
     }
 
     interface View : BaseView {
         fun showStargazers(stargazersList: MutableList<Stargazer>)
         fun addMoreStargazers(stargazersList: List<Stargazer>)
-//        fun addStargazers(stargazersList: List<Stargazer>)
     }
 }

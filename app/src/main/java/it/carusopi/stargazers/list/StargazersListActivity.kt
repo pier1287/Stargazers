@@ -1,5 +1,7 @@
 package it.carusopi.stargazers.list
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -21,11 +23,34 @@ class StargazersListActivity : BaseActivity(), StargazersListContract.View{
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
     lateinit var stargazersAdapter: StargazersListAdapter
 
+    lateinit private var repo: String
+    lateinit private var owner: String
+
+    companion object {
+        private val ARG_OWNER = "ARG_OWNER"
+        private val ARG_REPO = "ARG_REPO"
+
+        fun start(context: Context, owner: String, repository: String) {
+            val intent = Intent(context, StargazersListActivity::class.java)
+            intent.putExtra(ARG_OWNER, owner)
+            intent.putExtra(ARG_REPO, repository)
+            context.startActivity(intent)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getExtra()
+
         setContentView(R.layout.activity_stargazers_list)
         initView()
-        presenter.loadStargazers()
+
+        presenter.loadStargazers(owner, repo)
+    }
+
+    private fun getExtra(){
+        repo = intent.getStringExtra(ARG_REPO)
+        owner = intent.getStringExtra(ARG_OWNER)
     }
 
     override fun onActivityInject() {

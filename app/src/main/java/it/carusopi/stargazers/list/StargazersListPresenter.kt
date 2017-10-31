@@ -12,8 +12,8 @@ import it.carusopi.stargazers.data.interactor.GithubInteractor
 
 class StargazersListPresenter @Inject constructor(var githubInteractor: GithubInteractor) : StargazersListContract.Presenter() {
 
-    override fun loadStargazers() {
-        githubInteractor.getStargazersList("JakeWharton","RxBinding")
+    override fun loadStargazers(owner: String, repo: String) {
+        githubInteractor.getStargazersList(owner, repo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
