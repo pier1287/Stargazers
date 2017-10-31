@@ -20,4 +20,13 @@ class StargazersListPresenter @Inject constructor(var githubInteractor: GithubIn
                         { stargazersList -> view?.showStargazers(stargazersList) },
                         { })
     }
+
+    override fun loadMoreStargazers() {
+        githubInteractor.getMoreStargazers()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { stargazersList -> stargazersList?.let { view?.addMoreStargazers(stargazersList) } },
+                        { })
+    }
 }

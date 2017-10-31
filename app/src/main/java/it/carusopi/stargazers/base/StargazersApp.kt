@@ -1,6 +1,7 @@
 package it.carusopi.stargazers.base
 
 import android.app.Application
+import com.facebook.drawee.backends.pipeline.Fresco
 import it.carusopi.stargazers.base.di.component.AppComponent
 import it.carusopi.stargazers.base.di.module.AppModule
 import it.carusopi.stargazers.base.di.component.DaggerAppComponent
@@ -18,6 +19,7 @@ class StargazersApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Fresco.initialize(this)
         initDagger()
     }
 
