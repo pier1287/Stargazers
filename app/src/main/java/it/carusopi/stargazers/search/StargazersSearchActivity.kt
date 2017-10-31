@@ -17,14 +17,7 @@ class StargazersSearchActivity : AppCompatActivity(), StargazersSearchContract.V
         initView()
     }
 
-    fun initView(){
-        btn_search.setOnClickListener( {
-            val owner = etxt_owner.text.toString()
-            val repo = etxt_repository.text.toString()
-
-            mPresenter.onSearchClick(owner, repo)
-        })
-    }
+    fun initView(){}
 
     override fun goToStargazersList() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

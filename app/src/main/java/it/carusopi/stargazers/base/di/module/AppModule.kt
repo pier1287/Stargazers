@@ -1,4 +1,4 @@
-package it.carusopi.stargazers.base.di
+package it.carusopi.stargazers.base.di.module
 
 import android.app.Application
 import com.google.gson.GsonBuilder
