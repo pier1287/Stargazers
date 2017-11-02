@@ -1,6 +1,7 @@
 package it.carusopi.stargazers.base
 
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
 import it.carusopi.stargazers.base.di.component.AppComponent
 import it.carusopi.stargazers.base.mvp.BaseView

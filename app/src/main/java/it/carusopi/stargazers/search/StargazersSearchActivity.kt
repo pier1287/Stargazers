@@ -42,4 +42,12 @@ class StargazersSearchActivity : BaseActivity(), StargazersSearchContract.View {
     override fun goToStargazersList(owner: String, repo: String) {
         StargazersListActivity.start(this, owner, repo)
     }
+
+    override fun showOwnerFieldError() {
+        etxtOwner.error = resources.getString(R.string.required_owner)
+    }
+
+    override fun showRepoFieldError() {
+        etxtRepository.error = resources.getString(R.string.required_repository)
+    }
 }

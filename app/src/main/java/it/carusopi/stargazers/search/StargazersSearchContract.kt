@@ -1,5 +1,6 @@
 package it.carusopi.stargazers.search
 
+import android.support.annotation.StringRes
 import it.carusopi.stargazers.base.mvp.BasePresenter
 import it.carusopi.stargazers.base.mvp.BaseView
 
@@ -14,5 +15,7 @@ interface StargazersSearchContract {
 
     interface View : BaseView {
         fun goToStargazersList(owner: String, repo: String)
+        fun showOwnerFieldError()
+        fun showRepoFieldError()
     }
 }
