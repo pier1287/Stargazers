@@ -7,6 +7,9 @@ package it.carusopi.stargazers.search
 internal class StargazersSearchPresenter : StargazersSearchContract.Presenter(){
 
     override fun onSearchClick(owner: String, repo: String) {
-        view?.goToStargazersList(owner, repo)
-    }
+            if (owner.isBlank()) view?.showOwnerFieldError()
+            if (repo.isBlank()) view?.showRepoFieldError()
+            if (!owner.isBlank() && !repo.isBlank()) view?.goToStargazersList(owner, repo)
+        }
+
 }

@@ -21,13 +21,13 @@ class  StargazersListAdapter (var context: Context, var stargazersList: MutableL
         RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     companion object {
-        @JvmField val VIEW_TYPE_LOADING = 0
-        @JvmField val VIEW_TYPE_ITEM = 1
+        val VIEW_TYPE_LOADING = 0
+        val VIEW_TYPE_ITEM = 1
     }
 
-    override fun getItemCount(): Int = stargazersList.size
+    override fun getItemCount(): Int = stargazersList.size + 1
 
-    override fun getItemViewType(position: Int): Int = if (position < (stargazersList.count()-1)) VIEW_TYPE_ITEM else VIEW_TYPE_LOADING
+    override fun getItemViewType(position: Int): Int = if (position < (stargazersList.count())) VIEW_TYPE_ITEM else VIEW_TYPE_LOADING
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         when(holder) {

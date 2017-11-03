@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Created by carusopi on 30/10/2017.
  */
-class GithubInteractorImpl @Inject constructor(var githubApi: GithubApiClient): GithubInteractor {
+class GithubInteractorImpl @Inject constructor(var githubApi: GithubApiClient) : GithubInteractor {
 
     var pageLinks: PageLinks? = null
 
@@ -22,15 +22,15 @@ class GithubInteractorImpl @Inject constructor(var githubApi: GithubApiClient): 
     }
 
     override fun getMoreStargazers(): Observable<List<Stargazer>?> {
-        val page = pageLinks ?: throw StargazersException("You have to call getStargazersList() at least once")
+        pageLinks?.let { page ->
+            return page.next?.let { next ->
+                githubApi.getMoreStargazers(next).map {
+                    pageLinks = PageLinks(it.headers())
+                    it.body()
+                }
+            } ?: Observable.just(emptyList())
+        } ?: throw StargazersException("You have to call getStargazersList() at least once")
 
-        val next = page.next
-        if (next != null) {
-            return githubApi.getMoreStargazers(next).map {
-                pageLinks = PageLinks(it.headers())
-                it.body()
-            }
-        }
-        return Observable.just(null)
+
     }
 }

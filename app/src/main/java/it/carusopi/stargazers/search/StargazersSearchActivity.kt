@@ -2,6 +2,7 @@ package it.carusopi.stargazers.search
 
 import android.os.Bundle
 import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.android.schedulers.AndroidSchedulers
 import it.carusopi.stargazers.R
 import it.carusopi.stargazers.base.BaseActivity
 import it.carusopi.stargazers.list.StargazersListActivity
@@ -33,7 +34,7 @@ class StargazersSearchActivity : BaseActivity(), StargazersSearchContract.View {
 
     fun initView(){
         RxView.clicks(btnSearch)
-                .debounce(500, TimeUnit.MILLISECONDS)
+//                .debounce(200, TimeUnit.MILLISECONDS)
                 .subscribe {
                     presenter.onSearchClick(etxtOwner.text.toString(), etxtRepository.text.toString())
                 }
