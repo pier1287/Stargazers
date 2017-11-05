@@ -5,4 +5,8 @@
     <string name="search">Search</string>
     <string name="required_owner">Please enter owner</string>
     <string name="required_repository">Please enter repository</string>
+    <string name="not_found">La repository non esiste!</string>
+    <string name="err_generic">An internal error occurred. Please retry the request again.</string>
+    <string name="err_empty_list">No Stargazers for this repository</string>
+    <string name="err_not_found_list">Repository not found!</string>
 </resources>

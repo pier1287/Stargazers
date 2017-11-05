@@ -1,8 +1,10 @@
 package it.carusopi.stargazers.base.di.module
 
 import android.app.Application
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import it.carusopi.stargazers.data.network.interceptor.HttpErrorInterceptor
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
@@ -54,7 +56,7 @@ class OkHttpModule {
 
     @Provides
     @Singleton
-    fun providesLogginInterceptor() : HttpLoggingInterceptor {
+    fun providesLogginInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return interceptor
@@ -62,8 +64,14 @@ class OkHttpModule {
 
     @Provides
     @Singleton
-    fun providesOkHttp(cache: Cache, loggingInterceptor: HttpLoggingInterceptor) = getBaseBuilder(cache)
-            .addNetworkInterceptor(CachingControlInterceptor())
-            .addInterceptor(loggingInterceptor)
-            .build()
+    fun providesErrorInterceptor(gson: Gson): HttpErrorInterceptor = HttpErrorInterceptor(gson)
+
+    @Provides
+    @Singleton
+    fun providesOkHttp(cache: Cache, loggingInterceptor: HttpLoggingInterceptor, errorInterceptor: HttpErrorInterceptor) =
+            getBaseBuilder(cache)
+                    .addNetworkInterceptor(CachingControlInterceptor())
+                    .addInterceptor(loggingInterceptor)
+                    .addInterceptor(errorInterceptor)
+                    .build()
 }

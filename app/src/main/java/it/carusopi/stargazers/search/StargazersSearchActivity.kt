@@ -2,14 +2,12 @@ package it.carusopi.stargazers.search
 
 import android.os.Bundle
 import com.jakewharton.rxbinding2.view.RxView
-import io.reactivex.android.schedulers.AndroidSchedulers
 import it.carusopi.stargazers.R
 import it.carusopi.stargazers.base.BaseActivity
 import it.carusopi.stargazers.list.StargazersListActivity
 import it.carusopi.stargazers.search.di.DaggerStargazersSearchComponent
 import it.carusopi.stargazers.search.di.StargazersSearchModule
 import kotlinx.android.synthetic.main.activity_stargazers_search.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class StargazersSearchActivity : BaseActivity(), StargazersSearchContract.View {
@@ -36,7 +34,7 @@ class StargazersSearchActivity : BaseActivity(), StargazersSearchContract.View {
         RxView.clicks(btnSearch)
 //                .debounce(200, TimeUnit.MILLISECONDS)
                 .subscribe {
-                    presenter.onSearchClick(etxtOwner.text.toString(), etxtRepository.text.toString())
+                    presenter.onSearchClick(etextOwner.text.toString(), etextRepository.text.toString())
                 }
     }
 
@@ -45,10 +43,10 @@ class StargazersSearchActivity : BaseActivity(), StargazersSearchContract.View {
     }
 
     override fun showOwnerFieldError() {
-        etxtOwner.error = resources.getString(R.string.required_owner)
+        etextOwner.error = resources.getString(R.string.required_owner)
     }
 
     override fun showRepoFieldError() {
-        etxtRepository.error = resources.getString(R.string.required_repository)
+        etextRepository.error = resources.getString(R.string.required_repository)
     }
 }

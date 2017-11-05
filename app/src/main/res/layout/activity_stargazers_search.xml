@@ -7,7 +7,7 @@
     tools:context="it.carusopi.stargazers.search.StargazersSearchActivity">
 
     <EditText
-        android:id="@+id/etxtOwner"
+        android:id="@+id/etextOwner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -15,7 +15,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@id/etxtRepository"
+        app:layout_constraintBottom_toTopOf="@id/etextRepository"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +25,7 @@
         />
 
     <EditText
-        android:id="@+id/etxtRepository"
+        android:id="@+id/etextRepository"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -36,8 +36,8 @@
         app:layout_constraintBottom_toTopOf="@id/btnSearch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etxtOwner"
-        android:hint="@string/repo_hint"/>
+        app:layout_constraintTop_toBottomOf="@+id/etextOwner"
+        android:hint="@string/repo_hint" />
 
     <Button
         android:id="@+id/btnSearch"
@@ -51,5 +51,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etxtRepository" />
+        app:layout_constraintTop_toBottomOf="@+id/etextRepository" />
 </android.support.constraint.ConstraintLayout>

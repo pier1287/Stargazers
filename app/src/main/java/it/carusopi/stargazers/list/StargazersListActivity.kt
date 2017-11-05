@@ -5,17 +5,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import it.carusopi.stargazers.R
 import it.carusopi.stargazers.base.BaseActivity
 import it.carusopi.stargazers.commons.recyclerview.EndlessRecyclerViewScrollListener
-import it.carusopi.stargazers.data.model.Stargazer
+import it.carusopi.stargazers.data.model.StargazersPage
 import it.carusopi.stargazers.list.adapter.StargazersListAdapter
 import it.carusopi.stargazers.list.di.DaggerStargazersListComponent
 import it.carusopi.stargazers.list.di.StargazersListModule
 import kotlinx.android.synthetic.main.activity_stargazers_list.*
 import javax.inject.Inject
 
-class StargazersListActivity : BaseActivity(), StargazersListContract.View{
+class StargazersListActivity : BaseActivity(), StargazersListContract.View {
 
     @Inject
     lateinit var presenter: StargazersListContract.Presenter
@@ -48,7 +49,7 @@ class StargazersListActivity : BaseActivity(), StargazersListContract.View{
         presenter.loadStargazers(owner, repo)
     }
 
-    private fun getExtra(){
+    private fun getExtra() {
         repo = intent.getStringExtra(ARG_REPO)
         owner = intent.getStringExtra(ARG_OWNER)
     }
@@ -63,11 +64,11 @@ class StargazersListActivity : BaseActivity(), StargazersListContract.View{
     }
 
 
-    private fun initView(){
+    private fun initView() {
         initRecycler()
     }
 
-    private fun initRecycler(){
+    private fun initRecycler() {
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerStargazers.layoutManager = linearLayoutManager
         scrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
@@ -78,10 +79,20 @@ class StargazersListActivity : BaseActivity(), StargazersListContract.View{
         recyclerStargazers.addOnScrollListener(scrollListener)
     }
 
-    override fun showStargazers(stargazersList: MutableList<Stargazer>) {
-        stargazersAdapter = StargazersListAdapter(this, stargazersList)
+    override fun showStargazers(stargazersPage: StargazersPage) {
+        stargazersAdapter = StargazersListAdapter(this, stargazersPage)
         recyclerStargazers.adapter = stargazersAdapter
+        recyclerStargazers.visibility = View.VISIBLE
     }
 
-    override fun addMoreStargazers(stargazersList: List<Stargazer>) = stargazersAdapter.addStargazers(stargazersList)
+    override fun addMoreStargazers(stargazersPage: StargazersPage) = stargazersAdapter.addStargazers(stargazersPage)
+
+    override fun showListLoading() { progress_loader.visibility = View.VISIBLE }
+    override fun hideListLoading() { progress_loader.visibility = View.GONE }
+
+    override fun showListError(messageRes: Int) { message.text = resources.getText(messageRes); message.visibility = View.VISIBLE }
+    override fun hideListError() { message.visibility = View.GONE}
+
+    override fun showListEmpty() { message.text = resources.getText(R.string.err_empty_list); message.visibility = View.VISIBLE}
+    override fun hideListEmpty() { message.visibility = View.GONE}
 }

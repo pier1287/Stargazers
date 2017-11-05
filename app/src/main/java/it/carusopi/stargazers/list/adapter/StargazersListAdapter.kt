@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
 import it.carusopi.stargazers.R
 import it.carusopi.stargazers.data.model.Stargazer
+import it.carusopi.stargazers.data.model.StargazersPage
 import kotlinx.android.synthetic.main.recycler_item_loader.view.*
 import kotlinx.android.synthetic.main.recycler_item_stargazers_list.view.*
 
@@ -17,17 +18,20 @@ import kotlinx.android.synthetic.main.recycler_item_stargazers_list.view.*
 /**
  * Created by carusopi on 30/10/2017.
  */
-class  StargazersListAdapter (var context: Context, var stargazersList: MutableList<Stargazer>):
+class  StargazersListAdapter (var context: Context, stargazersPage: StargazersPage):
         RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+
+    private val stargazersList: MutableList<Stargazer> = stargazersPage.stargazersList.toMutableList()
+    private var hasNextPage = stargazersPage.hasNextPage
 
     companion object {
         val VIEW_TYPE_LOADING = 0
         val VIEW_TYPE_ITEM = 1
     }
 
-    override fun getItemCount(): Int = stargazersList.size + 1
+    override fun getItemCount(): Int = if (hasNextPage) stargazersList.size + 1 else stargazersList.size
 
-    override fun getItemViewType(position: Int): Int = if (position < (stargazersList.count())) VIEW_TYPE_ITEM else VIEW_TYPE_LOADING
+    override fun getItemViewType(position: Int): Int = if (position < (stargazersList.size)) VIEW_TYPE_ITEM else VIEW_TYPE_LOADING
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         when(holder) {
@@ -47,8 +51,9 @@ class  StargazersListAdapter (var context: Context, var stargazersList: MutableL
         }
     }
 
-    fun addStargazers(stargazersToAdd: List<Stargazer>){
-        stargazersList.addAll(stargazersToAdd)
+    fun addStargazers(stargazersPage: StargazersPage){
+        stargazersList.addAll(stargazersPage.stargazersList)
+        hasNextPage = stargazersPage.hasNextPage
         notifyDataSetChanged()
     }
 

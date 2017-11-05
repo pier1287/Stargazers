@@ -14,7 +14,7 @@ import java.util.*
 
 interface GithubApiClient {
     @GET("/repos/{owner}/{repo}/stargazers")
-    fun getStargazers(@Path("owner") owner: String, @Path("repo") repository: String) : Observable<Response<MutableList<Stargazer>>>
+    fun getStargazers(@Path("owner") owner: String, @Path("repo") repository: String) : Observable<Response<List<Stargazer>>>
 
     @GET
     fun getMoreStargazers(@Url url:String): Observable<Response<List<Stargazer>>>
