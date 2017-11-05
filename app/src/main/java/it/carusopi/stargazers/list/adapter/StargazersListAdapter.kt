@@ -18,11 +18,11 @@ import kotlinx.android.synthetic.main.recycler_item_stargazers_list.view.*
 /**
  * Created by carusopi on 30/10/2017.
  */
-class  StargazersListAdapter (var context: Context, stargazersPage: StargazersPage):
+class  StargazersListAdapter (var context: Context):
         RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    private val stargazersList: MutableList<Stargazer> = stargazersPage.stargazersList.toMutableList()
-    private var hasNextPage = stargazersPage.hasNextPage
+    private val stargazersList: MutableList<Stargazer> = mutableListOf()
+    private var hasNextPage = false
 
     companion object {
         val VIEW_TYPE_LOADING = 0

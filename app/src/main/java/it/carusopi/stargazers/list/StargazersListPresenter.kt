@@ -24,8 +24,12 @@ class StargazersListPresenter @Inject constructor(var githubInteractor: GithubIn
                 .observeOn(viewScheduler)
                 .subscribe(
                         { stargazersPage ->
-                            if (stargazersPage.isEmpty()) view?.showListEmpty()
-                            else view?.showStargazers(stargazersPage)
+                            if (stargazersPage.isEmpty()) {
+                                view?.showListEmpty()
+                            } else {
+                                view?.addStargazers(stargazersPage)
+                                view?.showStargazers()
+                            }
                             view?.hideListLoading()
                         },
                         { ex ->
@@ -42,7 +46,7 @@ class StargazersListPresenter @Inject constructor(var githubInteractor: GithubIn
                 .subscribeOn(jobScheduler)
                 .observeOn(viewScheduler)
                 .subscribe(
-                        { stargazersPage -> stargazersPage?.let { view?.addMoreStargazers(stargazersPage) } },
+                        { stargazersPage -> stargazersPage?.let { view?.addStargazers(stargazersPage) } },
                         { view?.showListError(R.string.err_generic) })
     }
 }

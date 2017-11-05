@@ -15,8 +15,9 @@ interface StargazersListContract {
     }
 
     interface View : BaseView {
-        fun showStargazers(stargazersPage: StargazersPage)
-        fun addMoreStargazers(stargazersPage: StargazersPage)
+        fun addStargazers(stargazersPage: StargazersPage)
+        fun showStargazers()
+        fun hideStargazers()
         fun showListLoading()
         fun hideListLoading()
         fun showListError(@StringRes messageRes: Int)

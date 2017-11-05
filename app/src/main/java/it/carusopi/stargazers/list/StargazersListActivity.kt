@@ -77,15 +77,15 @@ class StargazersListActivity : BaseActivity(), StargazersListContract.View {
             }
         }
         recyclerStargazers.addOnScrollListener(scrollListener)
-    }
 
-    override fun showStargazers(stargazersPage: StargazersPage) {
-        stargazersAdapter = StargazersListAdapter(this, stargazersPage)
+        stargazersAdapter = StargazersListAdapter(this)
         recyclerStargazers.adapter = stargazersAdapter
-        recyclerStargazers.visibility = View.VISIBLE
     }
 
-    override fun addMoreStargazers(stargazersPage: StargazersPage) = stargazersAdapter.addStargazers(stargazersPage)
+    override fun addStargazers(stargazersPage: StargazersPage) = stargazersAdapter.addStargazers(stargazersPage)
+
+    override fun showStargazers() { recyclerStargazers.visibility = View.VISIBLE }
+    override fun hideStargazers() { recyclerStargazers.visibility = View.GONE }
 
     override fun showListLoading() { progress_loader.visibility = View.VISIBLE }
     override fun hideListLoading() { progress_loader.visibility = View.GONE }

@@ -11,7 +11,6 @@ import it.carusopi.stargazers.data.model.Stargazer
 import it.carusopi.stargazers.data.model.StargazersPage
 import it.carusopi.stargazers.list.StargazersListContract
 import it.carusopi.stargazers.list.StargazersListPresenter
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
@@ -35,7 +34,7 @@ class StargazersListPresenterTest {
 
         presenter.loadStargazers("_ignored", "_ignored")
 
-        verify(viewMock, times(1)).showStargazers(any())
+        verify(viewMock, times(1)).addStargazers(any())
     }
 
     @Test
@@ -51,7 +50,7 @@ class StargazersListPresenterTest {
 
         presenter.loadStargazers("_ignored", "_ignored")
 
-        verify(viewMock).showStargazers(argThat { equals(stargazersPage) })
+        verify(viewMock).addStargazers(argThat { equals(stargazersPage) })
     }
 
     @Test
@@ -65,7 +64,7 @@ class StargazersListPresenterTest {
 
         presenter.loadMoreStargazers()
 
-        verify(viewMock).addMoreStargazers(argThat { equals(stargazersPage) })
+        verify(viewMock).addStargazers(argThat { equals(stargazersPage) })
     }
 }
 
