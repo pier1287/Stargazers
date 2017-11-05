@@ -23,7 +23,11 @@ class StargazersListPresenter @Inject constructor(var githubInteractor: GithubIn
                 .subscribeOn(jobScheduler)
                 .observeOn(viewScheduler)
                 .subscribe(
-                        { stargazersPage -> view?.showStargazers(stargazersPage); view?.hideListLoading() },
+                        { stargazersPage ->
+                            if (stargazersPage.isEmpty()) view?.showListEmpty()
+                            else view?.showStargazers(stargazersPage)
+                            view?.hideListLoading()
+                        },
                         { ex ->
                             when (ex) {
                                 is HttpNotFoundException -> view?.showListError(R.string.err_not_found_list)
