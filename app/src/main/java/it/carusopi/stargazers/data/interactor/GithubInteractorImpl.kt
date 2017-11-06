@@ -10,9 +10,9 @@ import javax.inject.Inject
 /**
  * Created by carusopi on 30/10/2017.
  */
-class GithubInteractorImpl @Inject constructor(var githubApi: GithubApiClient) : GithubInteractor {
+class GithubInteractorImpl @Inject constructor(private var githubApi: GithubApiClient) : GithubInteractor {
 
-    var pageLinks: PageLinks? = null
+    private var pageLinks: PageLinks? = null
 
     override fun getStargazersList(owner: String, repository: String): Observable<StargazersPage> {
         return githubApi.getStargazers(owner, repository).map {

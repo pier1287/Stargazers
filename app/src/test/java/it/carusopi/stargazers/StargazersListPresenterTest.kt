@@ -5,25 +5,28 @@ import com.nhaarman.mockito_kotlin.argThat
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 import it.carusopi.stargazers.data.interactor.GithubInteractor
 import it.carusopi.stargazers.data.model.Stargazer
 import it.carusopi.stargazers.data.model.StargazersPage
 import it.carusopi.stargazers.list.StargazersListContract
 import it.carusopi.stargazers.list.StargazersListPresenter
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
+
 class StargazersListPresenterTest {
+
+    @Rule
+    @JvmField var testSchedulerRule = RxImmediateSchedulerRule()
 
     private val interactorMock: GithubInteractor = mock(GithubInteractor::class.java)
     private val viewMock: StargazersListContract.View = mock(StargazersListContract.View::class.java)
 
-
     @Test
     fun showStargazers_shouldBeCalled_whenWSreturnValidResponse() {
-        val presenter = StargazersListPresenter(interactorMock, jobScheduler = Schedulers.trampoline(), viewScheduler = Schedulers.trampoline())
+        val presenter = StargazersListPresenter(interactorMock)
         presenter.attachView(viewMock)
 
         val stargazersPage = StargazersPage(listOf(
@@ -39,7 +42,7 @@ class StargazersListPresenterTest {
 
     @Test
     fun stargazersListView_shouldShowCorrectListOfStargazers_whenWSreturnAListOfStargazers() {
-        val presenter = StargazersListPresenter(interactorMock, jobScheduler = Schedulers.trampoline(), viewScheduler = Schedulers.trampoline())
+        val presenter = StargazersListPresenter(interactorMock)
         presenter.attachView(viewMock)
 
         val stargazersPage = StargazersPage(listOf(
@@ -55,7 +58,7 @@ class StargazersListPresenterTest {
 
     @Test
     fun stargazersListView_shouldShowCorrectListOfStargazers_whenAreLoadedMoreStargazers() {
-        val presenter = StargazersListPresenter(interactorMock, jobScheduler = Schedulers.trampoline(), viewScheduler = Schedulers.trampoline())
+        val presenter = StargazersListPresenter(interactorMock)
         presenter.attachView(viewMock)
         val stargazersPage = StargazersPage(listOf(
                 Stargazer(id = 1),
