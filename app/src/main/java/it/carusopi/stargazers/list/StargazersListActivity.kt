@@ -21,8 +21,8 @@ class StargazersListActivity : BaseActivity(), StargazersListContract.View {
     @Inject
     lateinit var presenter: StargazersListContract.Presenter
 
-    lateinit var scrollListener: EndlessRecyclerViewScrollListener
-    lateinit var stargazersAdapter: StargazersListAdapter
+    private lateinit var scrollListener: EndlessRecyclerViewScrollListener
+    private lateinit var stargazersAdapter: StargazersListAdapter
 
     lateinit private var repo: String
     lateinit private var owner: String
